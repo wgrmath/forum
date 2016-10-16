@@ -1,0 +1,14 @@
+<h1><%- parent.header %></h1>
+<%= parent.body %>
+
+<% _.each(documents, function(doc) { %>
+  <% if (doc.type == 'post') { %>
+    <%= doc.body %>
+    <br>
+    by <%= doc.user_displayname || doc.user_username %>
+  <% } else { %>
+    <h2><a href="<%- getShareURL(doc.id) %>"><%- doc.header %></a></h2>
+    <%= doc.body %>
+  <% } %>
+  <br>
+<% }) %>

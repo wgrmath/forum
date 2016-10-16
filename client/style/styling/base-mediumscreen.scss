@@ -1,0 +1,8 @@
+body > #fruum {
+  font-size: $base-grid-big !important;
+}
+
+*:not(body) > #fruum {
+  font-size: $base-grid-big !important;
+//  max-width: optimal-width-big() + $fruum-whitespace*2;
+}

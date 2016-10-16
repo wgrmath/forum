@@ -1,0 +1,156 @@
+/*
+
+  Links styling
+
+  Contents
+
+  1. Base link styles
+  2. Buttons
+
+*/
+
+
+
+// 1. Base link styles
+
+#fruum .fruum-link {
+  text-decoration: none;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: $secondary-action-color;
+  &.fruum-base-object,
+  &.fruum-base-object:hover {
+    color: inherit;
+  }
+  &.fruum-link-off:not(:hover) {
+    color: $disabled-text-color !important;
+  }
+  &:hover {
+    text-decoration: underline;
+    color: $secondary-action-color-highlight;
+    &:not(.fruum-link-disabled) {
+      cursor: pointer;
+      cursor: hand;
+    }
+  }
+  &.fruum-link-secondary {
+    color: $negative-action-color;
+  }
+  &.fruum-link-negative {
+    color: $negative-action-color;
+  }
+  &.fruum-button-link {
+    // inherits font-size of responsive-default-font
+    display: block;
+    line-height: $default-font-basegrid*3;
+    padding: $default-font-basegrid/2 $default-font-basegrid*2;
+  }
+}
+
+
+
+// 2. Buttons
+
+#fruum button.fruum-main-button {
+  &:not(.fruum-link) {
+    @include default-button-block;
+    &.fruum-button-active,
+    &:hover {
+      @include default-button-hover;
+    }
+    &.fruum-button-active,
+    &:active {
+      @include button-active;
+    }
+  }
+  cursor: pointer;
+  cursor: hand;
+  &.fruum-link {
+    font-size: $responsive-big-font;
+    letter-spacing: 1px;
+    @include block-object-size( $responsive-big-font );
+    background-color: transparent;
+    border: 0;
+    color: $main-action-color;
+    &:hover {
+      color: $main-action-color-highlight;
+    }
+  }
+  &.fruum-cta-button {
+    background-color: $main-action-color;
+    color: $main-action-text-color;
+    &.fruum-is-active,
+    &:hover {
+      background-color: $main-action-color-highlight;
+    }
+  }
+  // reset letter spacing in case of icon button
+  &:empty {
+    letter-spacing: 0;
+  }
+  &:not(.fruum-link):not(:empty) {
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+  }
+}
+
+
+
+#fruum button.fruum-secondary-button,
+#fruum a.fruum-secondary-button {
+  @include generic-button;
+  &:not([class*="fruum-link"]) {
+    @include block-object-action( $responsive-default-font );
+    border: none;
+    font-weight: $important-font-weight;
+    color: $secondary-action-color;
+    background-color: darken( $background-helper-base-color, 2% );
+    transition: background-color 0.2s;
+    -moz-transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
+    &.fruum-is-active,
+    &.fruum-button-active,
+    &:hover {
+      color: $secondary-action-text;
+      background-color: $secondary-action-color;
+    }
+    &.fruum-button-active,
+    &:active {
+      @include button-active;
+    }
+  }
+  cursor: pointer;
+  cursor: hand;
+  &.fruum-link:hover {
+    text-decoration: underline;
+  }
+  &:not(.fruum-link):not(:empty) {
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+  }
+  &.fruum-negative {
+    color: $negative-action-color;
+    &.fruum-is-active,
+    &:hover {
+      background-color: $negative-action-color;
+    }
+  }
+}
+
+#fruum .fruum-secondary-button {
+  &.fruum-link-secondary {
+    color: $secondary-action-color;
+    &.fruum-is-active,
+    &:hover {
+      color: $secondary-action-color-highlight;
+    }
+  }
+  &.fruum-link-negative {
+    color: $negative-action-color;
+    &.fruum-is-active,
+    &:hover {
+      color: $negative-action-color-highlight;
+    }
+  }
+}

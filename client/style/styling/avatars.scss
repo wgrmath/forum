@@ -1,0 +1,76 @@
+/*
+
+  Create avatar classes mixin using
+  provided color set
+
+*/
+
+$char-list: (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z - _);
+$char-list: append($char-list, "(" );
+$char-list: append($char-list, ")" );
+$char-list: append($char-list, "[" );
+$char-list: append($char-list, "]" );
+$char-list: append($char-list, "'" );
+$char-list: append($char-list, "!" );
+$char-list: append($char-list, "?" );
+$char-list: append($char-list, ":" );
+$char-list: append($char-list, ";" );
+$char-list: append($char-list, "@" );
+$char-list: append($char-list, "#" );
+$char-list: append($char-list, "$" );
+$char-list: append($char-list, "%" );
+$char-list: append($char-list, "^" );
+$char-list: append($char-list, "&" );
+$char-list: append($char-list, "*" );
+$char-list: append($char-list, "=" );
+$char-list: append($char-list, "+" );
+$char-list: append($char-list, "{" );
+$char-list: append($char-list, "}" );
+$char-list: append($char-list, "|" );
+$char-list: append($char-list, "/" );
+$char-list: append($char-list, "<" );
+$char-list: append($char-list, ">" );
+$char-list: append($char-list, "~" );
+
+
+#fruum img.fruum-avatar-icon,
+#fruum .fruum-avatar-icon {
+  display: inline-block;
+  @include block-object-shapes;
+  overflow: hidden;
+}
+
+#fruum img.fruum-avatar-icon {
+  background-color: darken( $background-helper-base-color, 1% );
+}
+
+#fruum .fruum-avatar-icon:not(img) {
+  font-family: $avatar-font-family !important;
+  text-align: center;
+  text-transform: uppercase;
+  color: $avatar-text-color;
+  background-color: $avatar-default-background;
+  @if ($avatar-border-width & $avatar-border-style & $avatar-border-color) {
+  border: $avatar-border-width $avatar-border-style $avatar-border-color;
+  }
+  &.fruum-avatar-inverted {
+    border: none;
+    background-color: transparent;
+    @if ($avatar-border-width & $avatar-border-style & $avatar-border-color) {
+    color: $avatar-border-color;
+    } @else {
+    color: $avatar-default-background;
+    }
+  }
+}
+
+@if length($avatar-colors) == 0 {
+  $avatar-colors: (#ffc000,#0e9e4b,#10509e,#67276f,#86162b,#ac1313,#201f24,#696969,#1d9a87,#97217d,#168cb8,#da7e06);
+}
+
+$char-list-length: length($char-list);
+$avatar-color-length: length($avatar-colors);
+@for $i from 1 through $char-list-length {
+  #{"#fruum *:not(img)[data-initials^=\"" + nth($char-list, $i) + "\"]"} { background-color: nth($avatar-colors, 1 + (($i - 1) % $avatar-color-length)) }
+  #{"#fruum .fruum-avatar-icon.fruum-avatar-inverted:not(img)[data-initials^=\"" + nth($char-list, $i) + "\"]"} { background-color: transparent;@if ($avatar-border-color) { color: $avatar-border-color } @else { color: nth($avatar-colors, 1 + (($i - 1) % $avatar-color-length)) }}
+}

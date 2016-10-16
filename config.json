@@ -1,0 +1,190 @@
+{
+  "----------------------- SERVER SETUP -----------------------": "",
+
+  "port": 3000,
+  "static_root": "static",
+  "static_prefix": "/static",
+  "logs": "./logs",
+  "compress": false,
+
+  "scripts": {
+    "init": ""
+  },
+
+  "---------------------- HOSTING ADDRESS -----------------------": "",
+
+  "url": "http://127.0.0.1:3000",
+
+  "---------------------- BACKEND DRIVERS ----------------------": "",
+
+  "storage_engine": "elasticsearch",
+  "auth_engine": "remote",
+  "cache_engine": "memory_cache",
+  "email_engine": "mandrill",
+  "dispatch_engine": "base",
+
+  "--------------------- DOCUMENT SETTINGS --------------------- ": "",
+
+  "docs": {
+    "max_bookmark_title_size": 64,
+    "max_category_title_size": 64,
+    "max_category_description_size": 0,
+    "max_thread_title_size": 128,
+    "max_article_title_size": 128,
+    "max_blog_title_size": 128,
+    "max_channel_name_size": 32,
+    "max_post_size": 0
+  },
+
+  "--------------------- NOTIFICATION SETTINGS --------------------- ": "",
+
+  "notifications": {
+    "defaults": {
+      "from": {
+        "email": "",
+        "name": "Fruum notifications"
+      },
+      "administrators": []
+    }
+  },
+
+  "------------------- PLUGIN SCHEDULED TASKS -------------------": "",
+
+  "cron": {
+    "_help": "https://www.npmjs.com/package/node-schedule",
+    "_quickhelp": "minute(0-59) hour(0-23) day(1-31) month(1-12) weekday(0-7)",
+    "garbage_collect": "0 */4 * * *",
+    "monitor": "0 0 * * *"
+  },
+
+  "------------------------ ACTIVE PLUGIN  ------------------------": "",
+
+  "plugins": [
+    "persona_GenericEmpty",
+
+    "giphy",
+    "youtube",
+    "vimeo",
+    "dropbox",
+    "twitchtv",
+    "soundcloud",
+    "imgur",
+    "imagelinks",
+    "report",
+    "monitor",
+    "notify",
+    "slack",
+    "karma",
+    "garbage_collect"
+  ],
+
+  "------------------------ PLUGIN SETTINGS  ------------------------": "",
+
+  "elasticsearch": {
+    "host": "http://localhost:9200",
+    "apiVersion": "1.3",
+    "use_bulk": true,
+    "max_children": 1000,
+    "retry_on_conflict": 3,
+    "index_prefix": ""
+  },
+
+  "garbage_collect": {
+    "keep_archived_for": {
+      "seconds": 0,
+      "minutes": 0,
+      "hours": 0,
+      "days": 1,
+      "weeks": 0,
+      "months": 0,
+      "years": 0
+    },
+    "keep_chat_for": {
+      "seconds": 0,
+      "minutes": 0,
+      "hours": 0,
+      "days": 5,
+      "weeks": 0,
+      "months": 0,
+      "years": 0
+    },
+    "keep_inactive_users_for": {
+      "seconds": 0,
+      "minutes": 0,
+      "hours": 0,
+      "days": 0,
+      "weeks": 1,
+      "months": 0,
+      "years": 0
+    },
+    "reset_onboard_after": {
+      "seconds": 0,
+      "minutes": 0,
+      "hours": 0,
+      "days": 0,
+      "weeks": 0,
+      "months": 1,
+      "years": 0
+    }
+  },
+
+  "karma": {
+    "added_category": 0,
+    "added_thread": 2,
+    "added_article": 2,
+    "added_blog": 2,
+    "added_channel": 0,
+    "got_reply": 2,
+    "replied": 1,
+    "got_react_up": 10,
+    "got_react_down": -1,
+    "got_inappropriate": -50
+  },
+
+  "memory_cache": {
+    "static": 50,
+    "views": 10,
+    "properties": 100,
+    "default": 10
+  },
+
+  "memcached": {
+    "host": "",
+    "username": "",
+    "password": "",
+    "expire_static": 0,
+    "expire_views": 900,
+    "expire_properties": 900
+  },
+
+  "mandrill": {
+    "api_key": ""
+  },
+
+  "mailgun": {
+    "api_key": "",
+    "domain": ""
+  },
+
+  "__smtp_help": "https://www.npmjs.com/package/nodemailer",
+  "smtp": {
+    "host": "",
+    "port": 465,
+    "secure": true,
+    "auth": {
+      "user": "",
+      "pass": ""
+    }
+  },
+
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "password": ""
+  },
+
+  "sentry": {
+    "dsn": ""
+  }
+
+}

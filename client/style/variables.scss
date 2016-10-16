@@ -1,0 +1,148 @@
+/* base grid is the backbone of the whole rhythm and structure:
+    - defines spacing both vertical and horizontal
+    - sets a base for all text and line-heights,
+      all font sizes are multipliers of this number,
+      used on all responsive screen dimensions
+ */
+
+// default size, small screens
+$base-grid: 14px;
+
+// embeddable fruum size
+$base-grid-medium: 10px;
+
+// responsive size for big screens ( > 1200px )
+$base-grid-big: 8px;
+
+
+
+// whitespace left and right of fruum, assume base-grid as font-size
+$fruum-whitespace: 2em;
+
+
+/* Typography */
+
+/* Font families */
+
+$forum-fonts: Arial, sans-serif;
+$system-fonts: "Lucida Console", Monaco, monospace;
+
+/* Font sizes */
+
+$tiny-font: 10px; // small helptext
+$small-font: 12px;
+$default-font: 16px;
+$big-font: 18px;
+$bigger-font: 22px;
+$large-font: 26px;
+$enormous-font: 32px;
+
+/* Font weights */
+$base-font-weight: 400; // normal
+$important-font-weight: 700; // bold
+$complementary-font-weight: 200; // light
+
+/* Readability */
+
+$font-ufactor: 2.23; //font's μ factor, pity we can't have greek for variables
+$cpl: 82; // characters per line
+$read-lineheight: basegrid-mod( $default-font );
+
+
+
+/* Small screens */
+
+/* Small screens Font sizes */
+
+$responsive-special-font: 1em;
+$responsive-tiny-font: 1.25em;
+$responsive-small-font: 1.5em;
+$responsive-default-font: 1.75em;
+$responsive-big-font: 2.25em;
+$responsive-bigger-font: 2.5em;
+$responsive-large-font: 3em;
+$responsive-enormous-font: 4em;
+
+/* Small screens readability */
+
+$responsive-font-ufactor: 2.25;
+$responsive-cpl: 120;
+
+
+/* Stream specific variables */
+
+@import 'stream-typography';
+
+
+
+/* App colors */
+
+$background-base-color: #FCFCFC; // Forum background base color
+$background-helper-base-color: $background-base-color; // Forum helper background color - must always be set!! no transparent!! -
+$dividers-colors: #EDEDED; // Space dividers colors
+
+
+$important-text-color: darken( #E5E4E5, 75%); // important text color
+$base-text-color: darken( #E5E4E5, 55%); // basic text color
+$disabled-text-color: lighten($base-text-color, 25%); // disabled text color
+$muted-text-color: #D1CFD1; //E9E9DA; // muted text color
+$inverted-option-color: #CCCCCC; //CCCCCC; // inverted option color
+
+$main-action-color: #383E45; // main action color
+$main-action-color-highlight: lighten($main-action-color, 15%); // main action highlight color
+$main-action-text-color: #FFFFFF; // main action text color
+
+$secondary-action-color: saturate( $main-action-color, 40%); //#0b4f52; // secondary action color
+$secondary-action-color-highlight: lighten($secondary-action-color, 10%); //secondary action highlight color
+$secondary-action-text: #FFFFFF; // secondary action text color
+
+$negative-action-color: #F5003A; // negative action color
+$negative-action-color-highlight: lighten($negative-action-color, 15%); // negative action highlight color
+
+$muted-action-color: lighten( $main-action-color, 40% ); //#EFF1C7; // muted action color
+
+
+/* System colors */
+$forum-base-color: #F5003A; // forum main color, used as main links color inside your content
+$forum-header-color: #E5E4E5; // forum header color
+$forum-warning-color: #EDE7CB; // forum warning color
+$forum-error-color: #FFA1B7; // forum error color
+$forum-message-text-color: #383E45; // forum messages color
+
+
+/* Onboarding colors */
+$onboard-bg: #f4e6c1;
+$onboard-cta: $forum-base-color;
+
+
+
+/* Avatar variables */
+$avatar-font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+$avatar-default-background: $disabled-text-color;
+$avatar-border-style: null;
+$avatar-border-width: null;
+$avatar-border-color: null;
+$avatar-text-color: #FFFFFF;
+
+$avatar-big: 6.5em;
+$avatar-big-font: $responsive-big-font;
+
+$avatar-medium: 4em;
+$avatar-medium-font: $responsive-default-font;
+
+$avatar-small: 2em;
+$avatar-small-font: $responsive-tiny-font; // TODO: update with responsive font!!
+
+/* Old avatar colors set
+ $avatar-colors: (#ffc000,#0e9e4b,#10509e,#67276f,#86162b,#cb0a35,#201f24,#696969,#1d9a87,#ac1313,#97217d,#168cb8,#da7e06);
+*/
+$avatar-colors: (#d0c08e,#83c49e,#8ba5c5,#ac87b0,#c68390,#d09494,#a295d4,#b4ca95,#5fbfb0,#be6eac,#5fa9c4,#e4b87f);
+
+
+
+/* Tag variables */
+$tag-font-family: $avatar-font-family;
+$tag-default-background: $muted-text-color;
+$tag-text-color: $base-text-color;
+
+$tag-colors: (#d0d0d2,#f5e0e3,#d9e5f3,#c5eae9,#e9d1f2,#e5efd5,#f2ddc4,#edf9c6,#dfd1f2);

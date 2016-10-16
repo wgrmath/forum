@@ -1,0 +1,349 @@
+/*
+
+  Navigation section
+
+  Contents
+  1. Breadcrumb section
+  2. Navigation about section
+  3. Navigation search
+  4. Section title
+  5. Navigation filters
+    5.1 Nav counters
+
+*/
+
+
+
+// 1. Breadcrumb section
+
+#fruum .fruum-navigation-breadcrumb {
+  position: relative;
+  width: 100%;
+  font-size: 1em; // reset to base-grid
+  line-height: $avatar-medium;
+  height: $avatar-medium;
+  padding-right: $avatar-medium*1+1em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+#fruum .fruum-navigation-breadcrumb:after {
+  content: '';
+  display: table;
+  zoom: 1;
+  clear: both;
+}
+
+#fruum .fruum-navigation-item {
+  /* inherits base-grid, font-size 8px */
+  position: relative;
+  float: left;
+  font-size: $responsive-small-font;
+  margin-right: relative-ems( $base-grid, $responsive-small-font);
+  color: $disabled-text-color;
+  font-weight: $important-font-weight;
+  line-height: relative-ems( $base-object-dimension, $responsive-small-font );
+  $nav-item-margin: relative-ems( 1em, $responsive-tiny-font);
+  &.fruum-link {
+    font-weight: $important-font-weight;
+    font-size: $responsive-small-font;
+  }
+  &.fruum-avatar-icon {
+    /* same object!! inherits base-grid, font-size 8px */
+    overflow: visible;
+    min-width: relative-ems( $base-object-dimension, $responsive-tiny-font );
+    width: auto !important;
+    height: relative-ems( $base-object-dimension, $responsive-tiny-font );
+    line-height: relative-ems( $base-object-dimension, $responsive-tiny-font );
+    margin-right: $nav-item-margin;
+    font-size: $responsive-tiny-font;
+    font-weight: $base-font-weight;
+    color: $avatar-text-color;
+    &:hover {
+      color: $avatar-text-color;
+    }
+  }
+  .fruum-avatar-icon {
+    $nav-avatar-font: relative-ems( $responsive-tiny-font, $responsive-small-font);
+    $nav-avatar-size: relative-ems( relative-ems($base-object-dimension, $responsive-small-font), $nav-avatar-font);
+    float: left;
+    min-width: $nav-avatar-size;
+    width: auto !important;
+    height: $nav-avatar-size;
+    line-height: $nav-avatar-size;
+    margin-right: relative-ems( $nav-item-margin, $nav-avatar-font);
+    font-size: $nav-avatar-font;
+    font-weight: $base-font-weight;
+  }
+  .fruum-icon:not(:empty):before {
+    margin-right: 0;
+  }
+  .fruum-link {
+    color: $avatar-text-color;
+  }
+}
+
+#fruum .fruum-navigation-breadcrumb .fruum-search {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#fruum .fruum-navigation-breadcrumb .fruum-manage {
+  right: auto;
+  left: 0;
+  height: 100%;
+  font-size: 1em; // reset to base-grid
+  background-color: $background-helper-base-color;
+  &:not(.fruum-manage-display) {
+    display: none;
+  }
+  &.fruum-manage-display {
+    padding-left: 0;
+    a.fruum-link {
+      font-size: $responsive-big-font;
+    }
+  }
+  .fruum-navigation-item {
+    font-size: $responsive-small-font;
+    text-transform: uppercase;
+  }
+}
+
+
+
+// 2. Navigation about section
+
+#fruum .fruum-nav-about {
+  position: relative;
+  height: 3em;
+  width: 100%;
+  font-size: 1em; //reset to base-grid;
+  background-color: $forum-header-color;
+}
+
+#fruum .fruum-nav-about .fruum-about-link {
+  position: relative;
+  display: block;
+  float: left;
+  color: $disabled-text-color;
+  font-size: $responsive-tiny-font;
+  line-height: $tiny-font-basegrid*3;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    &:before {
+      text-decoration: none;
+    }
+  }
+}
+
+#fruum .fruum-navigation-section .fruum-nav-about {
+  box-sizing: content-box !important;
+  -webkit-box-sizing: content-box !important;
+  -moz-box-sizing: content-box !important;
+  padding-left: $fruum-whitespace;
+  padding-right: $fruum-whitespace;
+  margin-left: -$fruum-whitespace;
+}
+
+#fruum .fruum-navigation-section .fruum-nav-system {
+  display: block;
+  float: right;
+  font-size: $responsive-big-font;
+  line-height: $big-font-basegrid*3;
+  margin-left: $big-font-basegrid;
+  padding: 0 $big-font-basegrid;
+  color: $forum-base-color !important;
+  &:not(:hover) {
+    opacity: 0.3;
+  }
+}
+
+// 2.1 Override for embedded fruum
+
+*:not(body) > #fruum {
+  .fruum-nav-about {
+    text-align: right;
+    a.fruum-about-link {
+      float: none;
+      &:before {
+        display: none;
+      }
+    }
+  }
+}
+
+
+
+// 3. Navigation search
+
+#fruum .fruum-search {
+  // inherits a font-size of base-grid
+  // border: 1px solid $secondary-action-color;
+  // box-shadow: inset 0 0 2px rgba( $secondary-action-color, 0.6 );
+  background-color: transparent;
+  color: $secondary-action-color;
+  @include block-object-action($responsive-big-font);
+  font-size: $responsive-big-font;
+  line-height: relative-ems($base-object-dimension, $responsive-big-font);
+  float: left;
+  &.fruum-icon:before {
+    margin-right: -4px;
+    color: inherit;
+    font-size: 140% !important;
+    cursor: pointer;
+    cursor: hand;
+  }
+  input {
+    border: none;
+    background-color: transparent;
+    color: $base-text-color;
+    width: 2px;
+    font-size: inherit; // $responsive-big-font
+    transition: width 0.2s;
+    -webkit-transition: width 0.2s;
+    -moz-transition: width 0.2s;
+  }
+
+  .fruum-link {
+    color: $disabled-text-color;
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &:not(.fruum-search-active) {
+    cursor: pointer;
+    cursor: hand;
+    &:hover {
+      color: $secondary-action-color-highlight;
+    }
+    input {
+      opacity: 0;
+      width: 0;
+    }
+    .fruum-link {
+      display: none;
+    }
+  }
+
+  &.fruum-search-active {
+    border-bottom: 1px solid $dividers-colors;
+    //box-shadow: inset 0 0 2px rgba( $disabled-text-color, 0.3 );
+    background-color: rgba( $background-helper-base-color, 0.2 );
+    padding: 0 $big-font-basegrid;
+    input {
+      width: $big-font-basegrid*30;
+    }
+
+    &.fruum-icon:before {
+      color: $dividers-colors;
+      margin-right: $big-font-basegrid/2;
+    }
+
+  }
+}
+
+
+
+// 4. Section title
+
+#fruum .fruum-section-sticky {
+  clear: both;
+  width: 100%;
+  font-size: 1em; // reset to base-grid
+  .fruum-section-title {
+    margin-top: 1em;
+    padding-bottom: 0;
+  }
+}
+
+#fruum .fruum-section-title {
+  position: relative;
+  width: 100%;
+  padding: 0 2em 1em 0;
+  margin-top: 1em;
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  .fruum-secondary-data {
+    display: block;
+    font-size: 70%;
+    font-weight: $base-font-weight;
+  }
+}
+
+#fruum .fruum-header-message {
+  // inherits base-grid
+  font-size: $stream-default-font;
+  line-height: $stream-default-lineheight;
+  color: $disabled-text-color;
+  overflow: auto;
+  max-height: 180px;
+}
+
+
+
+// 5. Navigation filters
+
+#fruum .fruum-section-filters {
+  position: relative;
+  width: 100%;
+  font-size: $responsive-default-font;
+  line-height: $default-font-basegrid*2;
+  margin-top: $default-font-basegrid/2;
+  margin-bottom: $default-font-basegrid/2;
+  &:after {
+    content: '';
+    display: table;
+    zoom: 1;
+    clear: both;
+  }
+
+  .fruum-section-nav {
+    float: right;
+    font-size: inherit; // $responsive-default-font
+    line-height: $default-font-basegrid*3;
+  }
+
+  .fruum-item-actions {
+    // inherits a font-size of responsive-default-font
+    display: block;
+    font-size: relative-ems( $responsive-big-font, $responsive-default-font);
+    margin-top: 0;
+    width: auto;
+    float: left;
+    line-height: relative-ems( $default-font-basegrid, relative-ems( $responsive-big-font, $responsive-default-font) )*3;
+  }
+}
+
+
+
+// 5.1 Nav counters
+
+#fruum .fruum-section-nav {
+  // inherits a font size of $resposive-default-font
+  color: $disabled-text-color;
+}
+
+#fruum .fruum-section-nav b{
+  font-weight: $important-font-weight;
+  color: $important-text-color;
+}
+
+#fruum .fruum-section-nav .fruum-section-nav-link {
+  display: inline-block;
+  line-height: inherit;
+  opacity: 0.5;
+  cursor: pointer;
+  cursor: hand;
+  padding: 0 $default-font-basegrid/2;
+}
+
+#fruum .fruum-section-nav .fruum-section-nav-link:hover {
+  opacity: 1;
+}

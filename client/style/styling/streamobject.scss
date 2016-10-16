@@ -1,0 +1,392 @@
+/*
+
+  Fruum stream object classes
+
+  Contents
+
+  1. Basic data container and objects
+    1.1 Base object
+    1.2 Primary data
+    1.3 Secondary data
+    1.4 Object card
+    1.5 Object counter
+  2. Avatar basic styling
+  3. Base elements customizations
+  4. Managing actions
+    4.1 Manage section
+    4.2 Item interactions
+    4.3 Item micro-animations
+
+*/
+
+
+
+// 1. Basic data container and objects
+
+// 1. Base object
+#fruum .fruum-base-object {
+  // inherits font-size of base-grid
+  position: relative;
+  display: block;
+  width: 100%;
+  padding-left: $fruum-whitespace;
+  padding-right: $fruum-whitespace;
+  padding-bottom: 1em;
+  padding-top: 1em;
+  &.fruum-base-object-compactup {
+    margin-top: -2em;
+  }
+  &:after {
+    content: '';
+    display: table;
+    zoom: 1;
+    clear: both;
+  }
+  .fruum-avatar {
+    // default set to base-grid
+    display: block;
+    width: $avatar-big;
+    float: left;
+  }
+  .fruum-primary-data {
+    max-width: 45%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: $base-text-color;
+  }
+  .fruum-secondary-data {
+    // has a font-size of responsive-small-font
+    &:not(:first-child) {
+      margin-left: $small-font-basegrid;
+    }
+  }
+  .fruum-object-additional-data {
+    // inherits a font-size of base-grid
+    position: relative;
+    display: block;
+    min-height: 2em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  .fruum-object-main-data {
+    margin-top: $default-font-basegrid/2;
+    margin-bottom: $default-font-basegrid/2;
+    font-size: $responsive-default-font;
+    line-height: $default-font-basegrid*3;
+    .fruum-secondary-data {
+      line-height: inherit;
+      overflow: visible;
+      font-size: relative-ems( $responsive-small-font, $responsive-default-font );
+    }
+    &.fruum-secondary-data {
+      margin-left: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      color: $base-text-color;
+    }
+  }
+  .fruum-object-meta {
+    // inherits a font-size of base-grid
+    position: absolute;
+    width: 3em;
+    height: 3em;
+    line-height: 3em;
+    left: auto;
+    right: 2em;
+    top: 1em;
+    text-align: right;
+    .fruum-meta-content {
+      font-size: $responsive-small-font;
+      color: $disabled-text-color;
+    }
+  }
+  .fruum-object-manage-data {
+    // inherits font-size of base-grid
+    padding-right: 3em;
+  }
+}
+
+// 1.2 Primary data
+#fruum .fruum-primary-data {
+  display: inline-block;
+  font-size: $responsive-small-font;
+  line-height: $small-font-basegrid*2;
+}
+
+// 1.3 Secondary data
+#fruum .fruum-secondary-data {
+  display: inline-block;
+  font-size: $responsive-small-font;
+  line-height: $small-font-basegrid*2;
+  font-style: normal;
+  color: $disabled-text-color;
+  .highlight {
+    color: $important-text-color !important;
+    background-color: $muted-text-color !important;
+    padding: 0 $small-font-basegrid/2;
+  }
+}
+
+// 1.4 Object card
+#fruum .fruum-object-card {
+  position: absolute;
+  display: block;
+  right: 0;
+  bottom: $tiny-font-basegrid*0.5;
+  padding: 0 $tiny-font-basegrid*2 0 $tiny-font-basegrid*0.5;
+  font-size: $responsive-tiny-font;
+  line-height: $tiny-font-basegrid*2;
+  text-transform: uppercase;
+  color: $background-helper-base-color;
+  background-color: $muted-text-color;
+}
+
+// 1.5 Object counter
+#fruum .fruum-counter-container {
+  display: inline-block;
+  font-size: $responsive-small-font;
+  color: $disabled-text-color;
+  padding: $small-font-basegrid*0.5 0;
+  line-height: 1em;
+  font-weight: $important-font-weight;
+}
+
+#fruum .fruum-counter-updated {
+  color: $forum-base-color;
+}
+
+#fruum .fruum-base-object:hover .fruum-counter-container {
+  background-color: fade-out( darken( $background-helper-base-color, 5% ), 0.2 );
+  padding-left: $small-font-basegrid*0.5;
+  padding-right: $small-font-basegrid*0.5;
+  margin-left: -0.5*$small-font-basegrid;
+  &.fruum-counter-newcontent {
+    opacity: 1;
+  }
+  .fruum-counter-label {
+    opacity: 1;
+  }
+}
+
+
+
+// 2. Avatar basic styling
+#fruum .fruum-avatar {
+  font-size: 1em; //reset to base-grid
+  img.fruum-avatar-icon,
+  .fruum-avatar-icon {
+    @include big-avatar-block;
+    &.fruum-avatar-inverted {
+      @include icon-only-avatar-block;
+    }
+  }
+}
+
+
+
+// 3. Base elements customizations
+#fruum .fruum-base-object {
+  // inherits font-size of base-grid
+  .fruum-object-meta .fruum-avatar-icon {
+    width: 100%;
+    height: 100%;
+    font-size: $avatar-small-font;
+    line-height: inherit; // object-meta has line-height = height
+  }
+
+  .fruum-avatar{
+    &:first-child {
+      & ~ .fruum-object-main-data {
+        // font size is responsive-default-font
+        margin-left: relative-ems( $avatar-big, $responsive-default-font ) + $default-font-basegrid*2;
+      }
+      & ~ .fruum-object-secondary-data {
+        // font size is responsive-small-font
+        margin-left: relative-ems( $avatar-big, $responsive-small-font ) + $small-font-basegrid*2;
+
+      }
+      & ~ .fruum-object-additional-data {
+        // font size is base-grid
+        margin-left: relative-ems( $avatar-big, 1em ) + 2em;
+      }
+    }
+  }
+
+  .fruum-object-additional-data {
+    // inherits a font-size of base-grid
+    &:first-child {
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 2em;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      border-bottom: 1px solid $dividers-colors;
+      &:after {
+        content: '';
+        display: table;
+        zoom: 1;
+        clear: both;
+      }
+    }
+    .fruum-avatar {
+      // has a font-size of base-grid
+      width: $avatar-small;
+      margin-right: 1em;
+      float: left;
+      img.fruum-avatar-icon,
+      .fruum-avatar-icon {
+        @include small-avatar-block;
+      }
+    }
+  }
+}
+
+
+
+// 4. Managing actions
+
+// 4.1 Manage section
+
+#fruum .fruum-manage {
+  position: absolute;
+  width: $bigger-font-basegrid*5;
+  height: $bigger-font-basegrid*3;
+  left: auto;
+  right: 0;
+  top: -0.285em;
+  text-align: right;
+  font-size: $responsive-bigger-font;
+  opacity: 0.15;
+  cursor: pointer;
+  cursor: hand;
+  &.fruum-link {
+    font-size: $responsive-big-font;
+  }
+  &.fruum-manage-display {
+    width: auto;
+    background-color: rgba( $background-helper-base-color, 0.9 );
+    padding-left: $bigger-font-basegrid;
+    padding-right: $bigger-font-basegrid*5;
+    opacity: 1;
+  }
+  &:not(.fruum-manage-display):not(a) {
+    &:before {
+      font-family: 'fruum-icons';
+      content: '\E016'; /* gear icon */
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: $bigger-font-basegrid*3;
+      line-height: $bigger-font-basegrid*3;
+      text-align: center;
+      color: $disabled-text-color;
+      overflow: hidden;
+    }
+    &:hover {
+      opacity: 0.5;
+    }
+    .fruum-link {
+      display: none;
+    }
+  }
+  .fruum-link {
+    opacity: 0.6;
+    display: inline-block;
+    text-align: center;
+    &.fruum-manage-close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: $inverted-option-color;
+    }
+    &:hover {
+      opacity: 1;
+    }
+    &:not(.fruum-manage-close) {
+      margin: 0 $bigger-font-basegrid/2;
+      padding: 0 $bigger-font-basegrid;
+    }
+  }
+  .fruum-link-negative {
+    margin-left: $bigger-font-basegrid*2;
+  }
+}
+
+#fruum a.fruum-manage:hover {
+  opacity: 1;
+}
+
+#fruum .fruum-objects-list .fruum-manage {
+  // inherits font-size of $responsive-bigger-font
+  top: relative-ems( 0.715em, $responsive-bigger-font );
+  right: relative-ems( 2em, $responsive-bigger-font ); // override positioning when inside main
+}
+
+// 4.2 Item interactions
+
+#fruum .fruum-item-actions {
+  position: relative;
+  width: 100%;
+  height: 1em;
+  line-height: 1em;
+  font-size: $responsive-big-font;
+  margin-top: $big-font-basegrid;
+  a:not(:hover) {
+    opacity: 0.3;
+    & > .fruum-icon {
+      opacity: 0.3;
+    }
+  }
+  a:not(:first-child) {
+    margin-left: $big-font-basegrid*2;
+  }
+  a.fruum-item-active:not(:hover):not(.fruum-action-pill) {
+    opacity: 0.5;
+  }
+  .fruum-maintain-block,
+  a.fruum-maintain-action {
+    float: right;
+  }
+  .fruum-maintain-block {
+    & > a:first-child {
+      margin-left: $big-font-basegrid*2;
+    }
+  }
+  .fruum-action-pill {
+    position: relative;
+    display: block;
+    float: left;
+    min-width: 4.2em;
+    color: $base-text-color;
+    margin-right: $big-font-basegrid;
+    font-size: 50%;
+    text-decoration: none;
+    height: 100%;
+    &:not(:hover) {
+      opacity: 0.4;
+    }
+    & > .fruum-icon:empty:before,
+    &.fruum-icon:before {
+      font-size: 250%;
+      line-height: 0.4;
+    }
+    & > .fruum-icon:empty:before {
+      margin-right: 0.2em;
+    }
+  }
+  a {
+    color: $base-text-color;
+    &.fruum-item-active {
+      color: $forum-base-color;
+    }
+  }
+}
+
+#fruum .fruum-base-object .fruum-avatar:first-child ~ .fruum-item-actions {
+  // has a font-size of responsive-default-font
+  padding-left: relative-ems( $avatar-big, $responsive-big-font) + $big-font-basegrid*2;
+}
+
+#fruum .fruum-base-object .fruum-item-actions { opacity: 0.7; }
+#fruum .fruum-base-object:hover .fruum-item-actions { opacity: 1; }

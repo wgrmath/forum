@@ -1,0 +1,818 @@
+/*
+
+  Fruum messaging and system styling
+
+  Contents
+
+  1. Loader
+    1.1 Loader mini
+  2. Tipsy
+  3. System messages
+  4. Helper action
+    4.1 Helper container
+    4.2 Helptext
+    4.3 Tutorial messages
+    4.4 Options list
+    4.5 Droppable highlight
+    4.6 Helper tabs
+  5. Popup data
+  6. Badges
+  7. Media item
+  8. Generic manipulation and typography
+    8.1 Visibility
+    8.2 Interactive elements hover effect
+
+*/
+
+
+
+// 1. Loader
+#fruum .fruum-loader {
+  position: relative;
+  display: inline-block;
+  height: 10px;
+  transform: skewX(-20deg);
+  -moz-transform: skewX(-20deg);
+  -webkit-transform: skewX(-20deg);
+  overflow: hidden;
+  animation: fruum-loader 1.4s linear infinite;
+  -webkit-animation: fruum-loader 1.4s linear infinite;
+  opacity: 0;
+}
+
+@keyframes fruum-loader {
+    0% {width: 10px;opacity:0;}
+  30% { width: 20px;opacity:1;}
+  88% {width: 72px;opacity: 1;}
+  92% {width: 72px;opacity: 1;}
+  99.9% {width: 72px;opacity: 0.1;}
+  100% {width:10px;opacity: 0;}
+}
+
+@-webkit-keyframes fruum-loader {
+    0% {width: 10px;opacity:0;}
+  30% { width: 20px;opacity:1;}
+  88% {width: 72px;opacity: 1;}
+  92% {width: 72px;opacity: 1;}
+  99.9% {width: 72px;opacity: 0.1;}
+  100% {width:10px;opacity: 0;}
+}
+
+#fruum .fruum-loader:before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 2px;
+  left: -8px;
+  width: 80px;
+  height: 80px;
+  border: 6px dotted $muted-text-color;
+}
+
+#fruum .fruum-loader:after {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 1px;
+  right: 0;
+  width:8px;
+  height: 8px;
+  background-color: $forum-base-color;
+  z-index: 1;
+}
+
+// 1.1 Loader mini
+#fruum .fruum-mini-loader {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  height: 1em;
+  font-size:1em;
+  overflow: hidden;
+  opacity: 0;
+  color: inherit;
+  animation: fruum-mini-loader 1s linear infinite;
+  -webkit-animation: fruum-mini-loader 1s linear infinite;
+  &:before {
+    content: '...';
+    position: relative;
+    width: 2em;
+    display: block;
+    color: inherit;
+    font-size: inherit;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    right: 0;
+    bottom: 0.08em;
+    width: 0.15em;
+    height: 0.2em;
+    background-color: $forum-base-color;
+  }
+}
+
+@keyframes fruum-mini-loader {
+    0% {width: 0;opacity:0;margin-right: 1.4em;}
+  30% { width: 0.4em;margin-right: 1em;opacity:1;}
+  88% {width: 1.4em;margin-right: 0;opacity: 1;}
+  92% {width: 1.4em;margin-right: 0;opacity: 1;}
+  99.9% {width: 1.4em;margin-right: 0;opacity: 0.1;}
+  100% {width:0;margin-right: 1.4em;opacity: 0;}
+}
+
+@-webkit-keyframes fruum-mini-loader {
+  0% {width: 0;opacity:0;margin-right: 1.4em;}
+30% { width: 0.4em;margin-right: 1em;opacity:1;}
+88% {width: 1.4em;margin-right: 0;opacity: 1;}
+92% {width: 1.4em;margin-right: 0;opacity: 1;}
+99.9% {width: 1.4em;margin-right: 0;opacity: 0.1;}
+100% {width:0;margin-right: 1.4em;opacity: 0;}
+}
+
+
+
+// 2. Tipsy
+#fruum *[data-fruumtipsy],
+#fruum *[data-fruumtipsy-left],
+#fruum *[data-fruumtipsy-right],
+#fruum *[data-fruumtipsy-center] {
+  position: relative;
+  &:after {
+    visibility: hidden;
+    content: attr(data-fruumtipsy);
+    display: block;
+    z-index: 12;
+    position: absolute;
+    width: 108px;
+    padding: basegrid-mod( 6px )/3 basegrid-mod( 6px ) basegrid-mod( 6px )/3+6px;
+    bottom: 100%;
+    font-size: $small-font;
+    text-align: center;
+    line-height: basegrid-mod( $small-font, 12px );
+    // default svg used: <svg xmlns='http://www.w3.org/2000/svg'><path fill='#222' d='M 0 0 L 400 0 L 400 294 L 206 294 L 200 300 L 194 294 L 0 294'/></svg>
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGZpbGw9IiMyMjIiIGQ9Ik0gMCAwIEwgNDAwIDAgTCA0MDAgMjk0IEwgMjA2IDI5NCBMIDIwMCAzMDAgTCAxOTQgMjk0IEwgMCAyOTQiLz48L3N2Zz4=");
+    background-size: 400px 300px;
+    background-repeat:no-repeat;
+    color: #DDD;
+    opacity: 0;
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transform: scale3d(0.7,0.3,1);
+    -moz-transform:    scale3d(0.7,0.3,1);
+    transform:         scale3d(0.7,0.3,1);
+  }
+  &:hover:after {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition:
+      opacity 0.2s ease-in-out,
+      visibility 0.2s ease-in-out,
+      -webkit-transform 0.2s;
+    -moz-transition:
+      opacity 0.2s ease-in-out,
+      visibility 0.2s ease-in-out,
+      -moz-transform 0.2s;
+    transition:
+      opacity 0.2s ease-in-out,
+      visibility 0.2s ease-in-out,
+      transform 0.2s;
+    -webkit-transform: translate3d(0,0,0) rotate3d(0,0,0,0);
+    -moz-transform:    translate3d(0,0,0) rotate3d(0,0,0,0);
+    transform:         translate3d(0,0,0) rotate3d(0,0,0,0);
+
+  }
+}
+
+#fruum *[data-fruumtipsy]:hover:after,
+#fruum *[data-fruumtipsy-center]:hover:after {
+  left: 50%;
+  margin-left: -49px;
+  background-position: 59% 100%;
+}
+
+#fruum *[data-fruumtipsy-center]:hover:after { content: attr(data-fruumtipsy-center); }
+
+#fruum *[data-fruumtipsy-right]:hover:after { content: attr(data-fruumtipsy-right);right: 0;background-position: 28% 100%; }
+#fruum *[data-fruumtipsy-left]:hover:after { content: attr(data-fruumtipsy-left);left: -10%;background-position: 71% 100%; }
+
+
+
+// 3. System messages
+
+#fruum .fruum-messages {
+  $message-spacing: relative-ems( $base-grid, $responsive-small-font);
+  $message-whitespacing: relative-ems( $fruum-whitespace, $responsive-small-font);
+  width: 100%;
+  font-size: $responsive-small-font;
+  padding: $message-spacing $message-whitespacing;
+  background-color: $background-base-color;
+  color: $forum-message-text-color;
+
+  border-top: 1px solid $disabled-text-color;
+  border-bottom: 1px solid $disabled-text-color;
+  .fruum-loader {
+    color: inherit;
+    line-height: 1em;
+    height: 1em;
+  }
+
+  &.fruum-message-warning {
+    background-color: $forum-warning-color;
+  }
+
+  &.fruum-message-error {
+    color: $forum-message-text-color;
+    background-color: $forum-error-color;
+  }
+
+  &.fruum-message-info {
+    @if ( lightness($background-helper-base-color) > 10 ) {
+      background-color: darken( $background-helper-base-color, 4% );
+    } @else {
+      background-color: lighten( $background-helper-base-color, 4% );
+    }
+  }
+
+  &.fruum-messages-helper {
+    color: $muted-text-color;
+    border-top: none;
+    border-bottom: none;
+    padding: $message-spacing $message-whitespacing/2;
+  }
+}
+
+
+
+// 4. Helper action
+
+#fruum .fruum-helper-action {
+  // inherits font size of base-grid
+  display: inline-block;
+  float: right;
+  color: $muted-text-color;
+  border: 1px solid $muted-text-color;
+  font-size: $responsive-bigger-font;
+  @include block-object-action( $responsive-bigger-font );
+  @include block-radius( relative-ems( $base-object-dimension, $responsive-bigger-font ) );
+  cursor: pointer;
+  cursor: hand;
+  &:not(:last-child) {
+    margin-left: $base-grid;
+  }
+  &.fruum-helper-text {
+    padding-left: $base-grid;
+    padding-right: $base-grid;
+    font-size: $responsive-default-font;
+    @include block-object-action( $responsive-default-font );
+    @include block-radius( relative-ems( $base-object-dimension, $responsive-default-font ) );
+  }
+  &:hover {
+    color: $disabled-text-color;
+    border-color: $disabled-text-color;
+  }
+  &:active {
+    @include button-active;
+  }
+  &.fruum-is-active {
+    color: $background-helper-base-color;
+    background-color: $disabled-text-color;
+    border-color: $disabled-text-color;
+    &:hover {
+      background-color: darken( $disabled-text-color, 5% );
+      border-color: darken( $disabled-text-color, 5% );
+    }
+  }
+}
+
+// 4.1 Helper container
+#fruum .fruum-helper-container {
+  // inherits font size of base-grid
+  $helper-container-basegrid: relative-ems( $base-grid, $responsive-small-font);
+  position: absolute;
+  width: 100%;
+  z-index: 99;
+  padding: $helper-container-basegrid $helper-container-basegrid*2 $helper-container-basegrid*2;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid $disabled-text-color;
+  background-color: $background-helper-base-color;
+  color: $base-text-color;
+  list-style-type: none;
+  font-size: $responsive-small-font;
+  line-height: $helper-container-basegrid*2;
+  &.fruum-helper-takeover {
+    height: calc( 100% - 3em); // -3em, navigation.scss .fruum-nav-about section
+    font-size: 1em;
+    line-height: auto;
+    padding: 0;
+    border-top-width: 0;
+  }
+  .fruum-helper-element {
+    clear: both;
+    margin: $helper-container-basegrid*0.5 0 $helper-container-basegrid*1.5;
+  }
+}
+
+#fruum .fruum-helper-container .fruum-helper-shortcut {
+  float: left;
+  position: relative;
+  display: block;
+  font-family: $system-fonts !important;
+  font-weight: bold;
+  width: 130px;
+  color: $base-text-color;
+}
+
+#fruum .fruum-helper-container .fruum-helper-explanation {
+  padding-left: 130px;
+  position: relative;
+  display: block;
+}
+
+#fruum .fruum-helper-container .fruum-helper-close {
+  position: absolute;
+  z-index: 1;
+  top: 2px;
+  right: relative-ems( $base-grid, relative-ems( $responsive-bigger-font, $responsive-small-font ));
+  font-size: relative-ems( $responsive-bigger-font, $responsive-small-font );
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+  cursor: hand;
+}
+
+#fruum .fruum-helper-container .fruum-helper-header {
+  position: relative;
+  margin: 0 -2em 0;
+  height: $avatar-big*1 + 1*$avatar-medium;
+  padding: 1em 2em 2em;
+  overflow: hidden;
+  @if ( lightness($main-action-color) > 40 ) {
+    background-color: saturate( darken( $main-action-color, 32% ), 5% );
+  } @else {
+    background-color: saturate( $main-action-color, 5% );
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 5em;
+    bottom: 0;
+    left: 0;
+    background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.12) 100%);
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.12) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.12) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#47000000',GradientType=0 );
+    z-index: 2;
+  }
+  .fruum-helper-close {
+    // font size of small-font
+    width: auto;
+    top: 4px;
+    right: auto;
+    left: relative_ems( $fruum-whitespace, $responsive-small-font );
+    line-height: relative_ems( $avatar-medium, $responsive-small-font );
+    text-shadow: 0 0 4px rgba( 0, 0, 0, 0.5 );
+    color: rgba( 255, 255, 255, 0.7 );
+    z-index: 2;
+    &:hover {
+      color: #fff;
+    }
+  }
+  .fruum-helper-header-disclaimer {
+    $compute-base-grid: relative-ems( $base-grid, relative-ems( $responsive-tiny-font, $responsive-small-font) );
+    position: absolute;
+    bottom: 0.5*$tiny-font-basegrid;
+    right: 1.5*$tiny-font-basegrid;
+    font-size: $responsive-tiny-font;
+    font-style: italic;
+    color: #fff;
+    opacity: 0.6;
+    z-index: 3;
+  }
+  img.fruum-helper-image {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    min-width: 110%;
+    max-width: 130%;
+    min-height: 120%;
+    transform: translate(-50%, -40%);
+    z-index: 1;
+  }
+}
+
+#fruum .fruum-helper-container .fruum-helper-maincard {
+  // reset font size
+  position: relative;
+  margin-right: 90px;
+  font-size: $base-grid;
+  margin-top: -0.5*$avatar-big;
+  margin-bottom: 3em;
+  z-index: 3;
+  .fruum-avatar {
+    float: left;
+    margin-right: 2em;
+  }
+  .fruum-avatar-icon {
+    box-shadow: 0 0 3px rgba( 0, 0, 0, 0.2 );
+    -moz-box-shadow: 0 0 3px rgba( 0, 0, 0, 0.2 );
+    -webkit-box-shadow: 0 0 3px rgba( 0, 0, 0, 0.2 );
+  }
+  .fruum-maincard-title {
+    display: block;
+    height: relative_ems( $avatar-big*0.5, $responsive-big-font );
+    font-family: $avatar-font-family;
+    color: #fff;
+    text-shadow: 0 0 4px rgba( 0, 0, 0, 0.2 );
+    font-size: $responsive-big-font;
+    line-height: relative_ems( $avatar-big*0.5, $responsive-big-font );
+  }
+
+  .fruum-maincard-subtitle {
+    display: block;
+    height: relative_ems( $avatar-big*0.5, $responsive-default-font );
+    font-size: $responsive-default-font;
+    line-height: relative_ems( $avatar-big*0.5, $responsive-default-font );
+    font-weight: $important-font-weight;
+    font-style: italic;
+    color: $base-text-color;
+  }
+
+  .fruum-maincard-secodarydata {
+    display: block;
+    font-size: $responsive-tiny-font;
+    margin-left: relative-ems( $avatar-big*1+2em, $responsive-tiny-font );
+    font-style: italic;
+    color: $disabled-text-color;
+  }
+  .fruum-maincard-score {
+    position: absolute;
+    display: block;
+    top: relative_ems( $avatar-big*0.5 + 1em, $responsive-small-font );
+    right: -90px;
+    font-size: $responsive-small-font;
+    color: $disabled-text-color;
+    line-height: $small-font-basegrid; // aligning with last seen
+    text-align: right;
+  }
+}
+
+#fruum .fruum-helper-takeover .fruum-helper-tablist {
+  font-size: $responsive-default-font;
+  line-height: $default-font-basegrid*3;
+  margin-bottom: $default-font-basegrid;
+}
+
+
+// 4.2 Helptext
+#fruum .fruum-helptext {
+  // inherits font-size of base-grid
+  color: $disabled-text-color;
+  font-size: $responsive-big-font;
+}
+
+// 4.3 Tutorial messages
+
+#fruum .fruum-tutorial-messages {
+  // inherits font-size of base-grid
+  display: block;
+  color: $muted-text-color;
+  font-size: $responsive-tiny-font;
+  line-height: relative-ems( $base-grid*2, $responsive-tiny-font );
+  width: 100%;
+  text-align: left;
+  &.fruum-tutorial-tip {
+    text-align: right;
+  }
+}
+
+// 4.4 Options list
+
+#fruum .fruum-options-list {
+  width: 100%;
+  color: $forum-message-text-color;
+  padding-top: 1em;
+  max-height: 32em;
+  overflow: auto;
+  &.fruum-options-twocolumns {
+    .fruum-option-item {
+      width: 48%;
+      &:nth-child(odd) {float: left;}
+      &:nth-child(even) {
+        float: right;
+        &:after {
+          content: '';
+          display: table;
+          clear: both;
+        }
+      }
+      &.fruum-option-empty {
+        width: 100%;
+        clear: both;
+      }
+    }
+  }
+  &.fruum-options-multicolumns {
+    .fruum-option-item {
+      float: left;
+      width: auto;
+      margin-right: 0.6em;
+    }
+  }
+  &.fruum-options-selectable {
+    .fruum-option-item:hover {
+      @include block-radius(1px);
+      background-color: $muted-text-color;
+    }
+    .fruum-option-item.fruum-option-item-button:hover {
+      background-color: darken( $muted-text-color, 7% );
+    }
+    img.fruum-option-item{
+      background-color: darken( $background-helper-base-color, 4% );
+      opacity: 0.8;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+#fruum .fruum-option-item {
+  display: block;
+  margin-bottom: $small-font-basegrid;
+  font-size: $responsive-small-font;
+  font-weight: $complementary-font-weight;
+  line-height: $small-font-basegrid*3;
+  cursor: pointer;
+  cursor: hand;
+  max-height: $small-font-basegrid*5;
+  min-height:$small-font-basegrid*3;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &.fruum-option-selected,
+  &:hover {
+    color: $important-text-color;
+    font-weight: $important-font-weight;
+  }
+  &.fruum-option-empty {
+    color: $muted-text-color;
+    font-weight: $important-font-weight;
+  }
+  &.fruum-option-item-button {
+    border: none;
+    background-image: none;
+    background-color: $muted-text-color;
+    color: $background-helper-base-color;
+    font-size: 2em;
+    padding: 0 0.7em;
+    height: 2.5em;
+    line-height: 2.5em;
+    .fruum-mini-loader:before {
+      line-height: 1.15;
+    }
+  }
+}
+
+// 4.5 Droppable highlight
+// this class is added dynamically with js, should override everything that is in there
+
+#fruum .fruum-droppable {
+  position: relative;
+  background-color: $background-helper-base-color !important;
+  border: 1px dashed $muted-text-color !important;
+  overflow: hidden;
+  &:after {
+    content: 'DROP IN HERE';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 2em;
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
+    line-height: 4em;
+    text-align: center;
+    z-index: 2;
+    color: $disabled-text-color;
+    font-weight: $important-font-weight;
+    text-shadow: 0 0 4px $background-helper-base-color;
+  }
+}
+
+// 4.6 Helper tabs
+
+#fruum .fruum-helper-tablist {
+  // inherits font size of responsive-small-font
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: $small-font-basegrid*2;
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  .fruum-helper-tab {
+    display: block;
+    float: left;
+    font-weight: $base-font-weight;
+    padding-left: $small-font-basegrid;
+    padding-right: $small-font-basegrid;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    &:first-child {
+      margin-left: -1*$small-font-basegrid;
+    }
+    &:not(.fruum-inactive):not(.fruum-active) {
+      color: $muted-action-color;
+      cursor: pointer;
+      cursor: hand;
+      &:hover {
+        color: $main-action-color;
+        border-bottom-color: $muted-text-color;
+      }
+    }
+    &.fruum-active {
+      color: $main-action-color;
+      border-bottom-color: $main-action-color;
+    }
+  }
+}
+
+
+
+// 5. Popup data
+
+#fruum .fruum-popup-data {
+  position: absolute;
+  width: 95%;
+  left: 2.5%;
+  max-height: 80em;
+  max-width: 750px;
+  z-index: 13;
+  @include block-radius( 1px );
+  font-size: 1em; // reset to base-grid
+  padding: 1em;
+  box-shadow: 0 0 6px rgba( $base-text-color, 0.6 );
+  background-color: $background-helper-base-color;
+  &.fruum-popup-half {
+    width: 47.5%;
+  }
+  &.fruum-popup-docked-bottomright-second,
+  &.fruum-popup-docked-bottomright {
+    left: auto;
+    right: $fruum-whitespace;
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-top: $base-grid solid $background-helper-base-color;
+      border-left: $base-grid dashed transparent;
+      border-right: $base-grid dashed transparent;
+      bottom: -1*$base-grid;
+      right: $base-grid*3.5+1px;
+    }
+    &:before {
+      border-top-color: rgba( $base-text-color, 0.2 );
+      bottom: -1*$base-grid - 1px;
+    }
+  }
+  &.fruum-popup-docked-bottomright-second {
+    &:after,
+    &:before {
+      right: $base-grid*6.5+3px;
+    }
+  }
+  input[type="text"],
+  textarea {
+    $popup-size: relative-ems( $base-grid, $responsive-tiny-font );
+    background-color: transparent;
+    color: $important-text-color;
+    border: 1px solid $dividers-colors;
+    width: 100%;
+    font-size: $responsive-tiny-font;
+    padding: $popup-size/2;
+    min-height: $popup-size*2;
+    @include block-radius( 1px );
+  }
+  textarea {
+    resize: none;
+  }
+  .fruum-main-button,
+  .fruum-secondary-button {
+    font-size: $responsive-default-font;
+  }
+  .fruum-secondary-button:not(:hover) {
+    text-decoration: none;
+  }
+  .fruum-link.fruum-popup-close {
+    $popup-close-basegrid: relative-ems( $base-grid, $responsive-small-font );
+    position: absolute;
+    color: $negative-action-color;
+    font-size: $responsive-small-font;
+    line-height: $popup-close-basegrid*2;
+    bottom: $popup-close-basegrid/2;
+    right: $popup-close-basegrid;
+  }
+  input[type="text"].fruum-interactions-input {
+    font-size: $responsive-big-font;
+    padding-left: 0;
+  }
+}
+
+
+
+// 6. Badges
+
+#fruum .fruum-badge {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  @include block-object-shapes;
+  font-size: 8px;
+  background-color: $main-action-color;
+  color: $main-action-text-color;
+  text-align: center;
+  text-decoration: none !important;
+  vertical-align: bottom;
+  &.fruum-badge-info {
+    color: $forum-message-text-color;
+    background-color: $forum-warning-color;
+  }
+}
+
+
+
+// 7. Media item
+
+#fruum .fruum-media-item {
+  position: relative;
+  display: block;
+  width: 100%;
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  .fruum-media-image {
+    @include block-object-shapes;
+  }
+  .fruum-media-link {
+    color: $negative-action-color;
+    text-decoration: none;
+    &:hover {
+      cursor: pointer;
+      cursor: hand;
+      text-decoration: underline;
+    }
+  }
+  .fruum-media-author {
+    font-weight: $important-font-weight;
+  }
+}
+
+
+
+// 8. Generic manipulation and typography
+
+//  8.1 Visibility
+
+#fruum .fruum-nodisplay {
+  display: none !important;
+}
+
+#fruum .fruum-float-right {
+  float: right;
+}
+
+// 8.2 Interactive elements hover effect
+
+#fruum .fruum-interactive-element {
+  transition: background 0.12s;
+  -webkit-transition: background 0.12s;
+  &.fruum-interactive-clicked,
+  &:hover {
+    background-color: lighten( $background-helper-base-color, 5% );
+  }
+  &.fruum-link {
+    &:hover {
+      text-decoration: none;
+    }
+    .fruum-link:hover,
+    a.fruum-link:hover {
+      color: $secondary-action-color;
+      text-decoration: none;
+    }
+  }
+}

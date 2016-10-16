@@ -1,0 +1,59 @@
+// Basic variables and mixins
+
+@import 'variables';
+
+//__APPLICATION_CUSTOM_SASS__
+
+@import 'mixins';
+
+// Fruum base
+@import 'styling/base';
+@import 'styling/system';
+@import 'styling/navigation';
+@import 'styling/streamsection';
+@import 'styling/streamobject';
+@import 'styling/interactions';
+@import 'styling/micro-animation';
+
+// Generic styles
+@import 'styling/avatars';
+@import 'styling/tags';
+@import 'styling/icons';
+@import 'styling/emoji';
+@import 'styling/linksnbuttons';
+
+
+// Fruum forum styling
+@import 'styling/stream';
+
+// Nanoscroller
+@import 'styling/nanoscroller';
+
+// Onboarding
+@import 'styling/onboarding';
+
+// Fruum smartphones
+
+@media (max-device-width: 1024px ) {
+  @import 'styling/system-smallscreen';
+}
+
+// Fruum tablets/large-screens
+
+// Medium screens
+
+@media (min-device-width: 1024px ) {
+  @import 'styling/system-mediumscreen';
+  @import 'styling/base-mediumscreen';
+  @import 'styling/streamobject-mediumscreen';
+  @import 'styling/interactions-mediumscreen';
+  @import 'styling/stream-mediumscreen';
+  @import 'styling/tags-mediumscreen';
+
+  @import 'styling/onboarding-mediumscreen';
+}
+
+@media (min-device-width: 1200px) {
+  @import 'styling/system-largescreen';
+  @import 'styling/base-largescreen';
+}

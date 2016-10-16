@@ -1,0 +1,9 @@
+body > #fruum {
+  width: optimal-width() + $fruum-whitespace*2;
+  &.fruum-takeover {
+    width: 99%;
+    &.fruum-hide {
+      width: 0;
+    }
+  }
+}

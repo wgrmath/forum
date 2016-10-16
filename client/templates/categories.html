@@ -1,0 +1,89 @@
+<!-- Category template -->
+<script type="text/template" id="fruum-template-category">
+  <div data-docid="<%- id %>" class="fruum-base-object fruum-link fruum-interactive-element fruum-js-entry-default fruum-js-navigate <% if (children_count && is_new) print('fruum-js-has-update'); %>">
+    <div class="fruum-avatar">
+      <span class="fruum-avatar-icon" data-initials="<%- Fruum.utils.printInitials(initials) %>"><%- initials %></span>
+    </div>
+    <div class="fruum-object-main-data<% if (Fruum.user.admin) { %> fruum-object-manage-data<% } %>">
+      <div class="fruum-stream-typography">
+        <h4>
+          <a href="<%- Fruum.utils.permaLink(id) %>"  class="fruum-link">
+            <% if (!visible) { %>
+            <span class="fruum-icon fruum-icon-invisible" data-fruumtipsy-center="Private category"></span>
+            <% } %>
+            <%= Fruum.utils.printHeader(header) %>
+          </a>
+        </h4>
+      </div>
+    </div>
+    <div class="fruum-object-additional-data">
+      <span class="fruum-secondary-data">
+        <% if (body) { %>
+          <%= Fruum.utils.print(body, attachments) %>
+        <% } else { %>
+          View thoughts and ideas in category, and share your own
+        <% } %>
+      </span>
+      <% if (children_count) { %>
+      <br>
+      <span class="fruum-counter-container">
+        <% if (is_new) { %>
+        <span class="fruum-icon fruum-icon-dot fruum-counter-updated fruum-anim-popup"></span>
+        <% } %>
+        <span class="fruum-counter-number"><%- children_count %></span>
+        <span class="fruum-counter-label">topic<% if (children_count > 1) print('s'); %></span>
+      </span>
+      <% } %>
+    </div>
+    <% if (Fruum.user.admin) { %>
+    <div class="fruum-manage fruum-interaction-item fruum-js-manage">
+      <a href="javascript:;" class="fruum-link fruum-manage-close fruum-icon fruum-icon-close"></a>
+      <a href="javascript:;" class="fruum-link fruum-link-secondary fruum-icon fruum-icon-up" data-action="up" data-fruumtipsy-right="Move up"></a>
+      <a href="javascript:;" class="fruum-link fruum-link-secondary fruum-icon fruum-icon-down" data-action="down" data-fruumtipsy-right="Move down"></a>
+      <a href="javascript:;" class="fruum-link fruum-link-negative fruum-icon fruum-icon-delete" data-action="delete" data-fruumtipsy-right="Delete category"></a>
+    </div>
+      <% if (viewing.permission != permission) { %>
+        <% if (permission == 1) { %>
+    <div class="fruum-object-card">USERS</div>
+        <% } else if (permission == 2) { %>
+    <div class="fruum-object-card">ADMINS</div>
+        <% } %>
+      <% } %>
+    <% } %>
+  </div>
+</script>
+
+<!-- Bookmark template -->
+<script type="text/template" id="fruum-template-bookmark">
+  <div data-docid="<%- id %>" class="fruum-base-object fruum-link fruum-interactive-element fruum-js-entry-default fruum-js-navigate">
+    <div class="fruum-avatar">
+      <span class="fruum-avatar-icon fruum-avatar-inverted fruum-icon fruum-icon-search" data-initials="<%- header %>"></span>
+    </div>
+    <div class="fruum-object-main-data<% if (Fruum.user.admin) { %> fruum-object-manage-data<% } %>">
+      <div class="fruum-stream-typography">
+        <h4>
+          <a href="<%- Fruum.utils.permaLink(id) %>"  class="fruum-link">
+            <% if (!visible) { %>
+            <span class="fruum-icon fruum-icon-invisible" data-fruumtipsy-center="Private category"></span>
+            <% } %>
+            <i><%= Fruum.utils.printHeader(header) %></i>
+            <span class="fruum-badge fruum-badge-info" data-fruumtipsy-right="New content" style="display: none;" data-info-id="<%- id %>">!</span>
+          </a>
+        </h4>
+      </div>
+    </div>
+    <div class="fruum-object-additional-data">
+      <span class="fruum-secondary-data">
+        <i>Stored search on: <b><%- body %></b>.</i>
+      </span>
+    </div>
+    <% if (Fruum.user.admin) { %>
+    <div class="fruum-manage fruum-interaction-item fruum-js-manage">
+      <a href="javascript:;" class="fruum-link fruum-manage-close fruum-icon fruum-icon-close"></a>
+      <a href="javascript:;" class="fruum-link fruum-link-secondary fruum-icon fruum-icon-up" data-action="up" data-fruumtipsy-right="Move up"></a>
+      <a href="javascript:;" class="fruum-link fruum-link-secondary fruum-icon fruum-icon-down" data-action="down" data-fruumtipsy-right="Move down"></a>
+      <a href="javascript:;" class="fruum-link fruum-link-negative fruum-icon fruum-icon-delete" data-action="delete" data-fruumtipsy-right="Delete stored search"></a>
+    </div>
+    <% } %>
+  </div>
+</script>

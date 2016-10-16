@@ -1,0 +1,224 @@
+<!-- channel post template -->
+<script type="text/template" id="fruum-template-post-channel">
+  <div data-docid="" class="fruum-base-object<% if (user_id == previous_user_id) { %> fruum-base-object-compactup<% } %> fruum-js-entry-default">
+
+    <% if (user_id == previous_user_id) { %>
+    <div class="fruum-avatar"></div>
+      <% if (created - previous_created > 60000) { %>
+    <div class="fruum-object-additional-data">
+      <span class="fruum-secondary-data">
+        <%- Fruum.libs.moment(parseInt(created)).fromNow() %>
+      </span>
+    </div>
+      <% } %>
+    <% } else { %>
+    <div class="fruum-avatar">
+      <% if (Fruum.utils.isLink(user_avatar)) { %>
+      <img src="<%- user_avatar %>" class="fruum-avatar-icon" width="56"/>
+      <% } else { %>
+      <span
+        class="fruum-avatar-icon"
+        data-initials="<%- Fruum.utils.getInitials(user_displayname) %>">
+        <%- Fruum.utils.getInitials(user_displayname) %>
+      </span>
+      <% } %>
+    </div>
+
+    <div class="fruum-object-additional-data">
+      <div class="fruum-primary-data">
+        <%- user_displayname || user_username %>
+      </div>
+      <span class="fruum-secondary-data">
+        <%- Fruum.libs.moment(parseInt(created)).fromNow() %>
+      </span>
+    </div>
+    <% } %>
+
+    <div class="fruum-object-main-data">
+      <div class="fruum-stream-typography">
+        <%= Fruum.utils.print(body, attachments) %>
+      </div>
+    </div>
+
+  </div>
+</script>
+
+<!-- post template -->
+<script type="text/template" id="fruum-template-post">
+  <% if (child_index === 1) { %>
+  <div class="fruum-object-divider"></div>
+  <% } %>
+
+  <div data-docid="" class="fruum-base-object fruum-interactive-element fruum-js-entry-default">
+
+    <div class="fruum-avatar">
+      <% if (Fruum.utils.isLink(user_avatar)) { %>
+      <img src="<%- user_avatar %>" class="fruum-avatar-icon" width="56"/>
+      <% } else { %>
+      <span
+        class="fruum-avatar-icon"
+        data-initials="<%- Fruum.utils.getInitials(user_displayname) %>">
+        <%- Fruum.utils.getInitials(user_displayname) %>
+      </span>
+      <% } %>
+    </div>
+
+    <div class="fruum-object-additional-data<% if (Fruum.user.id == user_id && !Fruum.user.anonymous) { %> fruum-object-manage-data<% } %>">
+      <div class="fruum-primary-data">
+        <a href="javascript:;" class="fruum-link fruum-js-profile"><%- user_displayname || user_username %></a>
+      </div>
+      <span class="fruum-secondary-data">
+        <%- Fruum.libs.moment(parseInt(created)).fromNow() %>
+      </span>
+      <% if (created != updated) { %>
+      <span class="fruum-secondary-data">EDITED</span>
+      <% } %>
+    </div>
+
+    <div class="fruum-object-main-data">
+      <div class="fruum-stream-typography">
+        <% if (inappropriate) { %>
+          <span class="fruum-admin-message">Post removed by moderator</span>
+        <% } else { %>
+        <%= Fruum.utils.print(body, attachments) %>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="fruum-item-actions">
+      <% if (!Fruum.user.anonymous) { %>
+
+        <% if (react_up.length) { %>
+      <a href="javascript:;" class="fruum-action-pill <% if (react_up.indexOf(Fruum.user.username) >= 0) print('fruum-item-active'); else print('fruum-anim-onhover '); %>" data-action="react" data-reaction="up" data-fruumtipsy-left="<%- Fruum.utils.printReactionTooltip('+1', react_up) %>"><span class="fruum-anim-landtopleft fruum-icon fruum-icon-thumbsup"></span><%= Fruum.utils.printReaction(react_up.length) %></a>
+        <% } else { %>
+      <a href="javascript:;" class="fruum-action-pill fruum-anim-onhover fruum-interaction-item" data-action="react" data-reaction="up"><span class="fruum-anim-landtopleft fruum-icon fruum-icon-thumbsup"></span><%= Fruum.utils.printReaction(react_up.length) %></a>
+        <% } %>
+
+        <% if (react_down.length) { %>
+      <a href="javascript:;" class="fruum-action-pill fruum-anim-onhover <% if (react_down.indexOf(Fruum.user.username) >= 0) print('fruum-item-active'); else print('fruum-anim-onhover '); %>" data-action="react" data-reaction="down" data-fruumtipsy-left="<%- Fruum.utils.printReactionTooltip('-1', react_down) %>"><span class="fruum-anim-landbottomleft fruum-icon fruum-icon-thumbsdown"></span><%= Fruum.utils.printReaction(react_down.length) %></a>
+        <% } else { %>
+      <a href="javascript:;" class="fruum-action-pill fruum-anim-onhover fruum-interaction-item" data-action="react" data-reaction="down"><span class="fruum-anim-landbottomleft fruum-icon fruum-icon-thumbsdown"></span><%= Fruum.utils.printReaction(react_down.length) %></a>
+        <% } %>
+
+      <% } else { %>
+      <span class="fruum-action-pill <% if (!react_up.length) print('fruum-interaction-item'); %>" data-fruumtipsy-left="login to vote"><span class="fruum-icon fruum-icon-thumbsup"></span><% if (react_up.length) print(react_up.length) %></span>
+      <span class="fruum-action-pill <% if (!react_down.length) print('fruum-interaction-item'); %>" data-fruumtipsy-left="login to vote"><span class="fruum-icon fruum-icon-thumbsdown"></span><% if (react_down.length) print(react_down.length) %></span>
+      <% } %>
+      <a href="javascript:;" class="fruum-icon fruum-icon-copy fruum-maintain-action fruum-interaction-item" data-action="share" data-fruumtipsy-right="copy link"></a>
+      <% if (!Fruum.user.anonymous && Fruum.user.id == user_id && !Fruum.user.admin) { %>
+      <a href="javascript:;" class="fruum-icon fruum-icon-edit fruum-maintain-action fruum-interaction-item" data-action="edit" data-fruumtipsy-right="Edit post"></a>
+      <% } %>
+      <% if (!Fruum.user.anonymous) { %>
+        <% if (Fruum.user.id != user_id && !Fruum.user.admin) { %>
+      <a href="javascript:;" class="fruum-icon fruum-icon-flag fruum-maintain-action fruum-interaction-item" data-action="report" data-fruumtipsy-right="Report this"></a>
+        <% } %>
+        <% if (Fruum.user.admin) { %>
+      <div class="fruum-maintain-block fruum-interaction-item fruum-js-more-source">
+        <a href="javascript:;" class="fruum-icon fruum-icon-more fruum-maintain-action" data-fruumtipsy-right="More post options"></a>
+      </div>
+      <div class="fruum-maintain-block fruum-nodisplay fruum-interaction-item fruum-js-more-target">
+      <% if (Fruum.user.id == user_id) { %>
+        <a href="javascript:;" class="fruum-icon fruum-icon-edit fruum-maintain-action" data-action="edit" data-fruumtipsy-right="Edit post"></a>
+      <% } %>
+        <a href="javascript:;" class="fruum-icon fruum-icon-delete fruum-maintain-action" data-action="delete" data-fruumtipsy-right="Delete post"></a>
+        <a href="javascript:;" class="fruum-icon <% if (inappropriate) { print('fruum-icon-flagdown') } else { print('fruum-icon-flag'); } %> fruum-maintain-action"
+          data-action="inappropriate"
+          data-fruumtipsy-right="<% if (inappropriate) { print('Show post message') } else { print('Hide post message'); } %>"></a>
+      </div>
+        <% } %>
+      <% } %>
+    </div>
+
+  </div>
+</script>
+
+<!-- post first entry template -->
+<script type="text/template" id="fruum-template-post-master">
+  <div data-docid="" class="fruum-base-object fruum-js-entry-default">
+
+    <% if (viewing.id == id && viewing.type == 'article') { %>
+    <% } else if (user_id) { %>
+    <div class="fruum-object-additional-data fruum-object-manage-data">
+
+      <div class="fruum-primary-data">
+        <a href="javascript:;" class="fruum-link fruum-js-profile"><%- user_displayname || user_username %></a>
+      </div>
+      <span class="fruum-secondary-data">
+        <%- Fruum.libs.moment(parseInt(created)).fromNow() %>
+      </span>
+      <% if (created != updated && viewing.id != id) { %>
+      <span class="fruum-secondary-data">EDITED</span>
+      <% } %>
+
+      <div class="fruum-avatar">
+        <% if (Fruum.utils.isLink(user_avatar)) { %>
+        <img src="<%- user_avatar %>" class="fruum-avatar-icon" width="56"/>
+        <% } else { %>
+        <span
+          class="fruum-avatar-icon"
+          data-initials="<%- Fruum.utils.getInitials(user_displayname) %>">
+          <%- Fruum.utils.getInitials(user_displayname) %>
+        </span>
+        <% } %>
+      </div>
+
+    </div>
+    <% } %>
+
+
+    <div class="fruum-object-main-data">
+      <div class="fruum-stream-typography">
+        <% if (inappropriate) { %>
+          <span class="fruum-admin-message">Post removed by moderator</span>
+        <% } else { %>
+        <%= Fruum.utils.print(body, attachments) %>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="fruum-item-actions">
+      <% if (!Fruum.user.anonymous) { %>
+
+        <% if (react_up.length) { %>
+      <a href="javascript:;" class="fruum-action-pill <% if (react_up.indexOf(Fruum.user.username) >= 0) print('fruum-item-active'); else print('fruum-anim-onhover '); %>" data-action="react" data-reaction="up" data-fruumtipsy-left="<%- Fruum.utils.printReactionTooltip('+1', react_up) %>"><span class="fruum-anim-landtopleft fruum-icon fruum-icon-thumbsup"></span><%= Fruum.utils.printReaction(react_up.length) %></a>
+        <% } else { %>
+      <a href="javascript:;" class="fruum-action-pill fruum-anim-onhover" data-action="react" data-reaction="up"><span class="fruum-anim-landtopleft fruum-icon fruum-icon-thumbsup"></span><%= Fruum.utils.printReaction(react_up.length) %></a>
+        <% } %>
+
+        <% if (react_down.length) { %>
+      <a href="javascript:;" class="fruum-action-pill <% if (react_down.indexOf(Fruum.user.username) >= 0) print('fruum-item-active'); else print('fruum-anim-onhover'); %>" data-action="react" data-reaction="down" data-fruumtipsy-left="<%- Fruum.utils.printReactionTooltip('-1', react_down) %>"><span class="fruum-anim-landbottomleft fruum-icon fruum-icon-thumbsdown"></span><%= Fruum.utils.printReaction(react_down.length) %></a>
+        <% } else { %>
+      <a href="javascript:;" class="fruum-action-pill fruum-anim-onhover" data-action="react" data-reaction="down"><span class="fruum-anim-landbottomleft fruum-icon fruum-icon-thumbsdown"></span><%= Fruum.utils.printReaction(react_down.length) %></a>
+        <% } %>
+
+      <% } else { %>
+      <span class="fruum-action-pill" data-fruumtipsy-left="login to vote"><span class="fruum-icon fruum-icon-thumbsup"></span><%= Fruum.utils.printReaction(react_up.length) %></span>
+      <span class="fruum-action-pill" data-fruumtipsy-left="login to vote"><span class="fruum-icon fruum-icon-thumbsdown"></span><%= Fruum.utils.printReaction(react_down.length) %></span>
+      <% } %>
+      <a href="javascript:;" class="fruum-icon fruum-icon-copy fruum-maintain-action" data-action="share" data-fruumtipsy-right="copy link"></a>
+      <% if (!Fruum.user.anonymous && Fruum.user.id == user_id && !Fruum.user.admin) { %>
+      <a href="javascript:;" class="fruum-icon fruum-icon-edit fruum-maintain-action" data-action="edit" data-fruumtipsy-right="Edit post"></a>
+      <% } %>
+      <% if (!Fruum.user.anonymous) { %>
+        <% if (Fruum.user.id != user_id  && !Fruum.user.admin) { %>
+      <a href="javascript:;" class="fruum-icon fruum-icon-flag fruum-maintain-action" data-action="report" data-fruumtipsy-right="Report this"></a>
+        <% } %>
+        <% if (Fruum.user.admin) { %>
+      <div class="fruum-maintain-block fruum-js-more-source">
+        <a href="javascript:;" class="fruum-icon fruum-icon-more fruum-maintain-action" data-fruumtipsy-right="More post options"></a>
+      </div>
+      <div class="fruum-maintain-block fruum-nodisplay fruum-js-more-target">
+      <% if (Fruum.user.id == user_id) { %>
+        <a href="javascript:;" class="fruum-icon fruum-icon-edit fruum-maintain-action" data-action="edit" data-fruumtipsy-right="Edit post"></a>
+      <% } %>
+        <a href="javascript:;" class="fruum-icon fruum-icon-delete fruum-maintain-action" data-action="delete" data-fruumtipsy-right="Delete post"></a>
+        <a href="javascript:;" class="fruum-icon <% if (inappropriate) { print('fruum-icon-flagdown') } else { print('fruum-icon-flag'); } %> fruum-maintain-action"
+            data-action="inappropriate"
+            data-fruumtipsy-right="<% if (inappropriate) { print('Show post message') } else { print('Hide post message'); } %>"></a>
+      </div>
+        <% } %>
+      <% } %>
+    </div>
+
+  </div>
+</script>
